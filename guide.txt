@@ -1,0 +1,11 @@
+Next time you work on the project, you just:
+
+on powershell:
+
+cd path\to\expense-tracker
+.\.venv\Scripts\Activate.ps1
+(Or the activate.bat version if you’re in CMD.)
+
+Then you can run Python or Flask as before — no need to run pip install -r requirements.txt again.
+
+requirements.txt is just for sharing or recreating the environment on a different machine (or if you delete your .venv folder).
