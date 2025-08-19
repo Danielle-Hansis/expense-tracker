@@ -13,3 +13,26 @@ h2 {
 p {
   font-style: italic;
 }
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: lightcoral;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.small-img {
+  width: 250px;
+  height: auto;
+  display: block;
+  margin: 20px 0;
+}

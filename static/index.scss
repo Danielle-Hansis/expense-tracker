@@ -11,3 +11,26 @@ h2 {
 p    {
   font-style: italic;
 }   // should italicize the paragraph
+
+// === Components ===
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: lightcoral;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+.small-img {
+  width: 250px;   // make image 200px wide
+  height: auto;   // keep proportions
+  display: block;
+  margin: 20px 0; // centers image horizontally
+}
