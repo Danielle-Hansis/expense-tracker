@@ -1,22 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
+{% extends 'base.html' %}
+{% block head %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
     <title>Expense Tracker</title>
-</head>
+{% endblock %}
 
-<body>
-    <h1>Welcome to the Expense Tracker</h1>
-    <p>Let's track your expenses!</p>
-    <img src="static/images/piggybank_blue.jpg"
-         alt="Blue piggy bank illustration"
-         class="small-img">
-    <div>
+{% block body %}
+    <h1>Welcome to Expense Tracker</h1>
+    <h3>Let's track your expenses!</h3>
+    <img src="{{ url_for('static', filename='images/piggybank_blue.jpg') }}"
+     alt="Blue piggy bank illustration"
+     class="small-img">
+   <!-- <div>
         <a href="https://www.morfix.co.il/en/temporary" class = "btn"> start logging! </a>
+    </div> -->
+    <div class="content">
+        {% if expenses  | length < 1%}
+        	<h2>START LOGGING!</h2>
+        {% else %}
+            <table>
+                <tr>
+                    <th>category</th>
+                    <th>amount</th>
+                    <th>created</th>
+                </tr>
+                {% for expense in expenses %}
+                    <tr>
+                      <td>{{ expense.category }}</td>
+                      <td>{{ "%.2f"|format(expense.amount) }}</td>
+                      <td>{{ expense.created.strftime("%Y-%m-%d") }}</td>
+                      <td>
+                        <a href="/delete/{{ expense.id }}">Delete</a>
+                        <a href="/update/{{ expense.id }}">Edit</a>
+                      </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
     </div>
-</body>
+    <div>
+        <form action="/" method="POST">
+            <label for="category">Category:</label>
+            <input type="text" name="category" id="content" accept="">
+            <label for="amount">Amount:</label>
+            <input type="number" name="amount" step="0.01">
+            <input type="submit" value="add new expense" id="btn_add" class="btn">
+        </form>
+    </div>
 
-</html>
+{% endblock %}

@@ -1,9 +1,15 @@
 body {
-  background-color: cadetblue;
+  background-color: cornsilk;
+  // horizontally center everything
+  display: flex;
+  flex-direction: column;
+  align-items: center;   // horizontal center
+  margin: 0;             // remove browser default margins
+  text-align: center;    // centers inline text like headers
 }
 
 h1   {
-  color: cornsilk ;
+  color: cadetblue ;
 }
 h2 {
   color: darkslategrey;
@@ -34,3 +40,16 @@ p    {
   display: block;
   margin: 20px 0; // centers image horizontally
 }
+
+.watermark {
+  position: fixed;          // stays at the bottom even when scrolling
+  bottom: 10px;             // little padding from edge
+  left: 0;
+  width: 100%;
+  text-align: center;       // center text horizontally
+  font-size: 0.9rem;        // slightly smaller text
+  color: rgba(0, 0, 0, 0.5); // subtle grey transparency
+  font-style: italic;       // nice style touch
+  user-select: none;        // prevent selecting the text accidentally
+}
+
