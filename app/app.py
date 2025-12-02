@@ -2,7 +2,8 @@ from flask import Flask, request                    # request used by your route
 import sass                                         # compiles SCSS → CSS
 from extensions import db                          # <-- import the unbound SQLAlchemy instance
 from pathlib import Path
-import model
+from model import seed_default_categories
+import functions
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent  # project root (one level above /app)
@@ -20,10 +21,8 @@ db.init_app(app)                                    # <-- bind db to this app (r
 # Create tables AFTER models are imported, inside an app context
 with app.app_context():                                 # <-- ensures Expense is registered with SQLAlchemy
     db.create_all()
+    seed_default_categories()
     print("DB path:", db.engine.url.database)
-
-# Import the request handlers after db/models are ready
-import functions
 
 
 @app.route("/", methods=["POST", "GET"])
