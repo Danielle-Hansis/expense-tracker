@@ -19,7 +19,7 @@ p {
   font-style: italic;
 }
 
-.btn {
+.btn1 {
   display: inline-block;
   padding: 10px 20px;
   background-color: lightcoral;
@@ -29,10 +29,38 @@ p {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  line-height: 1;
+  vertical-align: middle;
+  border: 2px solid black;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
 }
 
-.btn:hover {
-  background-color: #0056b3;
+.btn1:hover {
+  background-color: lightblue;
+}
+
+.btn2 {
+  display: inline-block;
+  padding: 10px 10px;
+  background-color: lightgray;
+  color: black;
+  font-weight: normal;
+  text-decoration: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  line-height: 1;
+  vertical-align: middle;
+  border: 2px solid black;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.btn2:hover {
+  background-color: lightblue;
 }
 
 .small-img {

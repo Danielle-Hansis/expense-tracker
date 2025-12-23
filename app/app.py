@@ -1,4 +1,4 @@
-from flask import Flask, request                    # request used by your route
+from flask import Flask, request, redirect, url_for                 # request used by your route
 import sass                                         # compiles SCSS → CSS
 from extensions import db                          # <-- import the unbound SQLAlchemy instance
 from pathlib import Path
@@ -25,14 +25,31 @@ with app.app_context():                                 # <-- ensures Expense is
     print("DB path:", db.engine.url.database)
 
 
-@app.route("/", methods=["POST", "GET"])
-def index_route():
-    return functions.index()
+@app.get("/")
+def home():
+    return redirect(url_for("expenses_get_route"))
 
 
-@app.route("/delete/<int:id>")
-def delete_route(id: int):
-    return functions.delete(id)
+@app.get("/expenses")
+def expenses_get_route():
+    return functions.expenses_get()
+
+
+@app.post("/expenses")
+def expenses_post_route():
+    return functions.expenses_post()
+
+
+@app.post("/expenses/<int:id>/delete")
+def expenses_delete_route(id: int):
+    return functions.expenses_delete(id)
+
+
+# uses GET to show the form and POST to apply updates
+# html forms can't send delete/ patch
+@app.route("/expenses/<int:id>/edit", methods=["GET", "POST"])
+def expenses_edit_route(id: int):
+    return functions.expenses_edit(id)
 
 
 if __name__ == "__main__":

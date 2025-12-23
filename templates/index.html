@@ -12,11 +12,9 @@
     <img src="{{ url_for('static', filename='images/piggybank_blue.jpg') }}"
      alt="Blue piggy bank illustration"
      class="small-img">
-   <!-- <div>
-        <a href="https://www.morfix.co.il/en/temporary" class = "btn"> start logging! </a>
-    </div> -->
+
     <div class="content">
-        {% if expenses  | length < 1%}
+        {% if expenses  | length < 1 %}
         	<h2>START LOGGING!</h2>
         {% else %}
             <table>
@@ -34,8 +32,13 @@
                       <td>{{ "%.2f"|format(expense.amount) }}</td>
                       <td>{{ expense.created.strftime("%Y-%m-%d") }}</td>
                       <td>
-                        <a href="/delete/{{ expense.id }}">Delete</a>
-                        <a href="/update/{{ expense.id }}">Edit</a>
+                        <form action="{{ url_for('expenses_delete_route', id=expense.id) }}"
+                              method="POST"
+                              style="display:inline;">
+                          <button type="submit" class="btn2">Delete</button>
+                        </form>
+
+                        <a class="btn2" href="{{ url_for('expenses_edit_route', id=expense.id) }}">Edit</a>
                       </td>
                     </tr>
                 {% endfor %}
@@ -43,7 +46,7 @@
         {% endif %}
     </div>
     <div>
-        <form action="/" method="POST">
+        <form action="{{ url_for('expenses_post_route') }}" method="POST">
             <!-- Category dropdown -->
             <label for="category_id">Category:</label>
             <select name="category_id" id="category_id" required>
@@ -59,7 +62,7 @@
             <input type="number" name="amount" id="amount" step="0.01" required>
 
             <!-- Submit button -->
-            <input type="submit" value="add new expense" id="btn_add" class="btn">
+            <input type="submit" value="add new expense" id="btn_add" class="btn1">
         </form>
     </div>
 

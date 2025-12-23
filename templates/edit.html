@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block head %}
+  <title>Edit Expense</title>
+{% endblock %}
+
+{% block body %}
+  <h1>Edit Expense #{{ expense.id }}</h1>
+
+  <form method="post">
+    <label>Amount:</label>
+    <input
+      type="number"
+      name="amount"
+      step="0.01"
+      required
+      value="{{ expense.amount }}"
+    />
+
+    <br><br>
+
+    <label>Description:</label>
+    <input
+      type="text"
+      name="description"
+      maxlength="255"
+      value="{{ expense.description or '' }}"
+    />
+
+    <br><br>
+
+    <label>Category:</label>
+    <select name="category_id" required>
+      {% for c in categories %}
+        <option value="{{ c.id }}" {% if c.id == expense.category_id %}selected{% endif %}>
+          {{ c.name }}
+        </option>
+      {% endfor %}
+    </select>
+
+    <br><br>
+
+    <button type="submit" class="btn2">Save</button>
+    <a class="btn2" href="/expenses">Cancel</a>
+  </form>
+{% endblock %}
+
+

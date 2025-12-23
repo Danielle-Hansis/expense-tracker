@@ -19,7 +19,7 @@ p    {
 }   // should italicize the paragraph
 
 // === Components ===
-.btn {
+.btn1 {
   display: inline-block;
   padding: 10px 20px;
   background-color: lightcoral;
@@ -30,8 +30,40 @@ p    {
   cursor: pointer;
   transition: background-color 0.2s ease;
 
+  line-height: 1;
+  vertical-align: middle;
+
+  border: 2px solid black;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+
   &:hover {
-    background-color: #0056b3;
+    background-color: lightblue;
+  }
+}
+
+.btn2 {
+  display: inline-block;
+  padding: 10px 10px;
+  background-color: lightgray;
+  color: black;
+  font-weight: normal;
+  text-decoration: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  line-height: 1;
+  vertical-align: middle;
+
+  border: 2px solid black;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+
+  &:hover {
+    background-color: lightblue;
   }
 }
 .small-img {
