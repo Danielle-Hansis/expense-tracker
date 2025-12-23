@@ -4,8 +4,16 @@ from decimal import Decimal
 from extensions import db
 
 
+def get_demo_user() -> User:
+    user = User.query.filter_by(user_name="demo").first()
+    if user is None:
+        raise RuntimeError("user not found")
+    return user
+
+
 def expenses_get():
-    expenses = Expense.query.order_by(Expense.created).all()
+    user = get_demo_user()
+    expenses = Expense.query.filter_by(user_id=user.id).order_by(Expense.created).all()
     categories = Category.query.order_by(Category.name).all()
     return render_template("index.html", expenses=expenses, categories=categories)
 
@@ -19,21 +27,28 @@ def expenses_post():
     if category is None:
         return "Category not found", 400
 
-    #  TODO: receive user details
-    new_entry = Expense(amount=amount, description=description or None,
-                        category=category)
+    user = get_demo_user()
+
+    new_entry = Expense(
+        amount=amount,
+        description=description or None,
+        category=category,
+        user=user,
+    )
 
     try:
         db.session.add(new_entry)
         db.session.commit()
         return redirect("/expenses")
     except Exception as e:
+        db.session.rollback()
         print(f"Exception occurred: {e}")
         return f"Exception occurred: {e}"
 
 
 def expenses_delete(id:int):
-    expense = Expense.query.get_or_404(id)
+    user = get_demo_user()
+    expense = Expense.query.filter_by(id=id, user_id=user.id).first_or_404()
     try:
         db.session.delete(expense)
         db.session.commit()
@@ -46,7 +61,8 @@ def expenses_delete(id:int):
 
 
 def expenses_edit(id: int):
-    expense = Expense.query.get_or_404(id)
+    user = get_demo_user()
+    expense = Expense.query.filter_by(id=id, user_id=user.id).first_or_404()
 
     if request.method == "GET":
         categories = Category.query.order_by(Category.name).all()

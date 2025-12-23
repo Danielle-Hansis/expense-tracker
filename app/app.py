@@ -2,7 +2,7 @@ from flask import Flask, request, redirect, url_for                 # request us
 import sass                                         # compiles SCSS → CSS
 from extensions import db                          # <-- import the unbound SQLAlchemy instance
 from pathlib import Path
-from model import seed_default_categories
+from model import seed_default_categories, seed_default_user
 import functions
 
 
@@ -22,6 +22,7 @@ db.init_app(app)                                    # <-- bind db to this app (r
 with app.app_context():                                 # <-- ensures Expense is registered with SQLAlchemy
     db.create_all()
     seed_default_categories()
+    seed_default_user()
     print("DB path:", db.engine.url.database)
 
 

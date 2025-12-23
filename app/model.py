@@ -70,6 +70,19 @@ def seed_default_categories():
             # If not, create a new Category row
             category = Category(name=name)
             db.session.add(category)
+    db.session.commit()
+
+
+def seed_default_user():
+    """
+    Insert a single default user into the database if missing.
+    Safe to run multiple times (idempotent).
+    """
+    existing = User.query.filter_by(user_name="demo").first()
+
+    if existing is None:
+        user = User(user_name="demo", password="not-used")
+        db.session.add(user)
 
     # Commit all new categories at once
     db.session.commit()
